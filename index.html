@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deepbook Quiz</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <img src="assets/logo.png" alt="Deepbook Logo">
+            <h1>Deepbook Quiz</h1>
+        </div>
+        <div class="level-badge">Level: Basic</div>
+
+        <!-- Start Screen -->
+        <div id="start-screen" class="quiz-section active start-screen">
+            <h2 class="start-logo-text">Test Your <span style="color:#3d5af1;">deepbook</span> Knowledge</h2>
+            <p class="start-subtitle">Challenge yourself with 10 basic questions. More levels coming soon!</p>
+            <div class="buttons">
+                <button class="btn" onclick="startQuiz()">Start Quiz</button>
+            </div>
+        </div>
+
+        <!-- Quiz Screen -->
+        <div id="quiz-screen" class="quiz-section">
+            <div class="question-counter">
+                <span id="current-question">1</span> of <span id="total-questions">10</span>
+            </div>
+            
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+
+            <div class="question">
+                <h3 id="question-text"></h3>
+                <div class="options" id="options-container"></div>
+            </div>
+
+            <div class="feedback" id="feedback"></div>
+
+            <div class="buttons">
+                <button class="btn" id="next-btn" onclick="nextQuestion()" disabled>Next Question</button>
+            </div>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="results-screen" class="quiz-section results-screen">
+            <h2>Quiz Complete!</h2>
+            
+            <div class="score-circle" id="score-circle">
+                <div id="score-percentage">0%</div>
+                <div class="score-text">Score</div>
+            </div>
+
+            <div class="results-message" id="results-message"></div>
+
+            <div class="results-breakdown">
+                <div class="breakdown-item">
+                    <span>Correct Answers:</span>
+                    <strong id="correct-count">0</strong>
+                </div>
+                <div class="breakdown-item">
+                    <span>Incorrect Answers:</span>
+                    <strong id="incorrect-count">0</strong>
+                </div>
+                <div class="breakdown-item">
+                    <span>Total Questions:</span>
+                    <strong id="total-count">0</strong>
+                </div>
+            </div>
+
+            <div class="buttons">
+                <button class="btn" onclick="restartQuiz()">Take Quiz Again</button>
+                <button class="btn" id="share-btn">Share on X</button>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer>Made with 💙 by <a href="https://x.com/LoserVineet" target="_blank">@LoserVineet</a></footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
