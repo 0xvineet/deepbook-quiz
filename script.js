@@ -1,5 +1,5 @@
 // Quiz data
-const quizData = [
+const quizDataLevel1 = [
     { question: "What is Deepbook?", options: ["A social media platform", "A decentralized trading platform on Sui", "A cloud storage service", "A cryptocurrency wallet"], correct: 1 },
     { question: "Deepbook is built on which blockchain?", options: ["Ethereum", "Bitcoin", "Sui", "Solana"], correct: 2 },
     { question: "Deepbook is mainly designed for:", options: ["DeFi and trading activities", "Social networking", "Cloud computing", "Video streaming"], correct: 0 },
@@ -19,6 +19,7 @@ const quizData = [
 
 let currentQuestion = 0;
 let score = 0;
+let quizData = [];
 
 const startScreen = document.getElementById("start-screen");
 const quizScreen = document.getElementById("quiz-screen");
@@ -39,15 +40,22 @@ const resultsMessage = document.getElementById("results-message");
 const correctCount = document.getElementById("correct-count");
 const incorrectCount = document.getElementById("incorrect-count");
 const totalCount = document.getElementById("total-count");
+const levelLabel = document.getElementById("level-label");
 
-totalQuestionsSpan.textContent = quizData.length;
-
-function startQuiz() {
-    startScreen.classList.remove("active");
-    quizScreen.classList.add("active");
-    currentQuestion = 0;
-    score = 0;
-    showQuestion();
+// Start quiz with selected level
+function selectLevel(level) {
+    if(level === 1) {
+        quizData = quizDataLevel1;
+        totalQuestionsSpan.textContent = quizData.length;
+        levelLabel.textContent = "Level: Basic";
+        startScreen.classList.remove("active");
+        quizScreen.classList.add("active");
+        currentQuestion = 0;
+        score = 0;
+        showQuestion();
+    } else {
+        alert("This level is not available yet!");
+    }
 }
 
 function showQuestion() {
@@ -129,8 +137,14 @@ function restartQuiz() {
     startScreen.classList.add("active");
 }
 
+function goToLevelSelect() {
+    resultsScreen.classList.remove("active");
+    startScreen.classList.add("active");
+    levelLabel.textContent = "Level: Select Below";
+}
+
 function shareOnX() {
-    const text = `I just completed the Deepbook Quiz! My score: ${score}/${quizData.length} 💙 Can you beat it?`;
+    const text = `I just completed the Deepbook Quiz! My score: ${score}/${quizData.length} 💙 Can you beat it? Thanks to @LoserVineet for creating this quiz`;
     const url = `https://deepbook-quiz.vercel.app/`; // Replace with your deployed URL
     const shareUrl = `https://x.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
     window.open(shareUrl, "_blank");

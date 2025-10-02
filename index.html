@@ -10,22 +10,26 @@
     <div class="container">
         <div class="header">
             <img src="assets/logo.png" alt="Deepbook Logo" class="logo">
-            <div class="level">Level: Basic</div>
+            <h2 class="header-title">Deepbook Quiz</h2>
+            <div class="level" id="level-label">Level: Select Below</div>
         </div>
 
         <!-- Start Screen -->
         <div id="start-screen" class="quiz-section active start-screen">
             <h2 class="start-text">Test Your <span class="highlight">deepbook</span> Knowledge</h2>
-            <p class="start-subtitle">Challenge yourself with 15 basic questions. More levels coming soon!</p>
-            <div class="buttons">
-                <button class="btn" onclick="startQuiz()">Start Quiz</button>
+            <p class="start-subtitle">Choose a level to begin the challenge!</p>
+            <div class="level-buttons">
+                <button class="btn" onclick="selectLevel(1)">Level 1 (Basic)</button>
+                <button class="btn locked" disabled>Level 2 (Coming Soon)</button>
+                <button class="btn locked" disabled>Level 3 (Coming Soon)</button>
+                <button class="btn locked" disabled>Level 4 (Coming Soon)</button>
             </div>
         </div>
 
         <!-- Quiz Screen -->
         <div id="quiz-screen" class="quiz-section">
             <div class="question-counter">
-                <span id="current-question">1</span> of <span id="total-questions">10</span>
+                <span id="current-question">1</span> of <span id="total-questions">15</span>
             </div>
             
             <div class="progress-bar">
@@ -71,8 +75,9 @@
             </div>
 
             <div class="buttons">
-                <button class="btn" onclick="restartQuiz()">Take Quiz Again</button>
+                <button class="btn" onclick="restartQuiz()">Try Again</button>
                 <button class="btn" onclick="shareOnX()">Share on X</button>
+                <button class="btn" onclick="goToLevelSelect()">Switch Level</button>
             </div>
         </div>
 

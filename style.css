@@ -6,7 +6,7 @@
 
 body {
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #0d47a1, #1976d2, #42a5f5); /* Deepbook gradient */
+    background: linear-gradient(135deg, #0d47a1, #1976d2, #42a5f5);
     min-height: 100vh;
     display: flex;
     align-items: center;
@@ -15,7 +15,7 @@ body {
 }
 
 .container {
-    background: rgba(255, 255, 255, 0.95); /* White panel */
+    background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
     border-radius: 20px;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
@@ -23,7 +23,7 @@ body {
     max-width: 800px;
     padding: 40px;
     transition: all 0.3s ease;
-    color: #333; /* Dark text for readability */
+    color: #333;
 }
 
 .header {
@@ -34,6 +34,11 @@ body {
 .header img.logo {
     width: 100px;
     margin-bottom: 10px;
+}
+
+.header-title {
+    font-size: 2rem;
+    margin-bottom: 5px;
 }
 
 .level {
@@ -50,7 +55,7 @@ body {
 }
 
 .start-text .highlight {
-    color: #0d47a1; /* Deepbook accent color */
+    color: #0d47a1;
 }
 
 .start-subtitle {
@@ -58,6 +63,18 @@ body {
     font-size: 1.1rem;
     margin-bottom: 30px;
     color: #333;
+}
+
+.level-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.level-buttons .btn.locked {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
 /* Quiz Section */
