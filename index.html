@@ -8,17 +8,15 @@
 </head>
 <body>
     <div class="container">
-        <!-- Header -->
         <div class="header">
-            <img src="assets/logo.png" alt="Deepbook Logo">
-            <h1>Deepbook Quiz</h1>
+            <img src="assets/logo.png" alt="Deepbook Logo" class="logo">
+            <div class="level">Level: Basic</div>
         </div>
-        <div class="level-badge">Level: Basic</div>
 
         <!-- Start Screen -->
         <div id="start-screen" class="quiz-section active start-screen">
-            <h2 class="start-logo-text">Test Your <span style="color:#3d5af1;">deepbook</span> Knowledge</h2>
-            <p class="start-subtitle">Challenge yourself with 10 basic questions. More levels coming soon!</p>
+            <h2 class="start-text">Test Your <span class="highlight">deepbook</span> Knowledge</h2>
+            <p class="start-subtitle">Challenge yourself with 15 basic questions. More levels coming soon!</p>
             <div class="buttons">
                 <button class="btn" onclick="startQuiz()">Start Quiz</button>
             </div>
@@ -74,12 +72,13 @@
 
             <div class="buttons">
                 <button class="btn" onclick="restartQuiz()">Take Quiz Again</button>
-                <button class="btn" id="share-btn">Share on X</button>
+                <button class="btn" onclick="shareOnX()">Share on X</button>
             </div>
         </div>
 
-        <!-- Footer -->
-        <footer>Made with 💙 by <a href="https://x.com/LoserVineet" target="_blank">@LoserVineet</a></footer>
+        <footer>
+            Made with 💙 by <a href="https://x.com/LoserVineet" target="_blank">@LoserVineet</a>
+        </footer>
     </div>
 
     <script src="script.js"></script>
