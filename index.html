@@ -14,17 +14,18 @@
             <div class="level" id="level-label">Level: Select Below</div>
         </div>
 
-        <!-- Start Screen -->
-        <div id="start-screen" class="quiz-section active start-screen">
-            <h2 class="start-text">Test Your <span class="highlight">deepbook</span> Knowledge</h2>
-            <p class="start-subtitle">Choose a level to begin the challenge!</p>
-            <div class="level-buttons">
-                <button class="btn" onclick="selectLevel(1)">Level 1 (Basic)</button>
-                <button class="btn locked" disabled>Level 2 (Coming Soon)</button>
-                <button class="btn locked" disabled>Level 3 (Coming Soon)</button>
-                <button class="btn locked" disabled>Level 4 (Coming Soon)</button>
-            </div>
-        </div>
+    <!-- Start Screen -->
+<div id="start-screen" class="quiz-section active start-screen">
+    <h2 class="start-text">Test Your <span class="highlight">deepbook</span> Knowledge</h2>
+    <p class="start-subtitle">Choose a level to begin the challenge!</p>
+    <div class="level-buttons">
+        <button class="btn level-btn" onclick="selectLevel(1)">Level 1 (Basic)</button>
+        <button class="btn level-btn" onclick="selectLevel(2)">Level 2 (Intermediate)</button>
+        <button class="btn level-btn locked" disabled>Level 3 (Coming Soon)</button>
+        <button class="btn level-btn locked" disabled>Level 4 (Coming Soon)</button>
+    </div>
+</div>
+
 
         <!-- Quiz Screen -->
         <div id="quiz-screen" class="quiz-section">
@@ -41,11 +42,11 @@
                 <div class="options" id="options-container"></div>
             </div>
 
-            <div class="feedback" id="feedback"></div>
-
-            <div class="buttons">
-                <button class="btn" id="next-btn" onclick="nextQuestion()" disabled>Next Question</button>
+            <div class="timer-bar">
+                <div class="timer-fill" id="timer-fill"></div>
             </div>
+
+            <div class="feedback" id="feedback"></div>
         </div>
 
         <!-- Results Screen -->

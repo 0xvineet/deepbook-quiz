@@ -17,6 +17,19 @@ const quizDataLevel1 = [
     { question: "Which protocol is known as the backbone of Sui DeFi?", options: ["Cetus Protocol", "DeepBook", "Turbos Finance", "Scallop"], correct: 1 },
 ];
 
+const quizDataLevel2 = [
+    { question: "In DeepBook’s CLOB, how are orders prioritized?", options: ["By wallet size", "By price first, then time", "By validator votes", "Random matching"], correct: 1 },
+    { question: "Why does DeepBook not use AMM-style liquidity pools?", options: ["Because Sui does not support tokens", "Because CLOB provides deeper liquidity and fairer pricing", "Because liquidity pools are illegal", "Because AMMs require Bitcoin miners"], correct: 1 },
+    { question: "What is the key advantage of shared CLOB design in DeepBook?", options: ["It prevents validators from joining", "Multiple protocols can access the same liquidity", "It allows NFT-only trading", "It removes limit orders"], correct: 1 },
+    { question: "In DeepBook, what happens when a buy and sell order do not immediately match?", options: ["The trade fails permanently", "The order is canceled instantly", "The order is placed in the order book", "The validator modifies the price"], correct: 2 },
+    { question: "What is slippage protection in DeepBook?", options: ["Preventing order book from showing empty slots", "Ensuring traders don’t pay higher/lower than set price", "Blocking small trades", "Avoiding validator downtime"], correct: 1 },
+    { question: "Why is DeepBook considered a shared infrastructure in Sui DeFi?", options: ["Because all dApps can plug into the same liquidity", "Because it only supports one protocol", "Because it stores NFTs", "Because it’s run off-chain"], correct: 0 },
+    { question: "In DeepBook, a “maker” is:", options: ["A trader who provides liquidity by placing limit orders", "A trader who removes liquidity instantly", "A validator controlling block time", "A developer writing Move contracts"], correct: 0 },
+    { question: "In DeepBook, a “taker” is:", options: ["A trader who provides liquidity", "A trader who removes liquidity by matching existing orders", "A validator node", "A protocol developer"], correct: 1 },
+    { question: "Which type of execution model ensures fairness in DeepBook order matching?", options: ["First-come, first-served", "Random order picking", "Validator-only priority", "Wallet age-based"], correct: 0 },
+    { question: "What ensures that tokens in DeepBook cannot be accidentally duplicated or lost?", options: ["Proof-of-work", "Move’s resource-oriented design", "Order book timestamps", "Gas fee penalties"], correct: 1 },
+];
+
 let currentQuestion = 0;
 let score = 0;
 let quizData = [];
@@ -42,20 +55,33 @@ const incorrectCount = document.getElementById("incorrect-count");
 const totalCount = document.getElementById("total-count");
 const levelLabel = document.getElementById("level-label");
 
+// Timer bar for feedback delay
+const timerFill = document.createElement("div");
+timerFill.style.height = "5px";
+timerFill.style.background = "linear-gradient(45deg, #0d47a1, #1976d2)";
+timerFill.style.width = "0%";
+timerFill.style.marginTop = "10px";
+feedback.appendChild(timerFill);
+
 // Start quiz with selected level
 function selectLevel(level) {
     if(level === 1) {
         quizData = quizDataLevel1;
         totalQuestionsSpan.textContent = quizData.length;
         levelLabel.textContent = "Level: Basic";
-        startScreen.classList.remove("active");
-        quizScreen.classList.add("active");
-        currentQuestion = 0;
-        score = 0;
-        showQuestion();
+    } else if(level === 2) {
+        quizData = quizDataLevel2;
+        totalQuestionsSpan.textContent = quizData.length;
+        levelLabel.textContent = "Level: Intermediate";
     } else {
         alert("This level is not available yet!");
+        return;
     }
+    startScreen.classList.remove("active");
+    quizScreen.classList.add("active");
+    currentQuestion = 0;
+    score = 0;
+    showQuestion();
 }
 
 function showQuestion() {
@@ -63,12 +89,13 @@ function showQuestion() {
     questionText.textContent = q.question;
     optionsContainer.innerHTML = "";
     feedback.style.display = "none";
-    nextBtn.disabled = true;
+    timerFill.style.width = "0%";
 
     q.options.forEach((option, index) => {
         const btn = document.createElement("div");
         btn.textContent = option;
         btn.classList.add("option");
+        btn.style.pointerEvents = "auto";
         btn.addEventListener("click", () => selectOption(index));
         optionsContainer.appendChild(btn);
     });
@@ -80,11 +107,16 @@ function showQuestion() {
 function selectOption(selectedIndex) {
     const q = quizData[currentQuestion];
     const optionElements = optionsContainer.querySelectorAll(".option");
+
+    // Disable clicks
+    optionElements.forEach((el) => el.style.pointerEvents = "none");
+
     optionElements.forEach((el, idx) => {
         el.classList.remove("correct", "incorrect", "selected");
         if(idx === selectedIndex) el.classList.add("selected");
     });
 
+    // Show feedback
     if(selectedIndex === q.correct) {
         score++;
         feedback.textContent = "Correct!";
@@ -92,18 +124,26 @@ function selectOption(selectedIndex) {
     } else {
         feedback.textContent = `Incorrect! Correct answer: ${q.options[q.correct]}`;
         feedback.className = "feedback incorrect";
+        optionElements[q.correct].classList.add("correct");
     }
     feedback.style.display = "block";
-    nextBtn.disabled = false;
-}
 
-function nextQuestion() {
-    currentQuestion++;
-    if(currentQuestion < quizData.length) {
-        showQuestion();
-    } else {
-        showResults();
-    }
+    // Timer bar animation for 1.5s
+    let width = 0;
+    const interval = setInterval(() => {
+        width += 100 / (1500 / 50);
+        timerFill.style.width = width + "%";
+        if(width >= 100) {
+            clearInterval(interval);
+            timerFill.style.width = "0%";
+            currentQuestion++;
+            if(currentQuestion < quizData.length) {
+                showQuestion();
+            } else {
+                showResults();
+            }
+        }
+    }, 50);
 }
 
 function showResults() {
@@ -135,6 +175,7 @@ function showResults() {
 function restartQuiz() {
     resultsScreen.classList.remove("active");
     startScreen.classList.add("active");
+    levelLabel.textContent = "Level: Select Below";
 }
 
 function goToLevelSelect() {
@@ -144,7 +185,8 @@ function goToLevelSelect() {
 }
 
 function shareOnX() {
-    const text = `I just completed the Deepbook Quiz! My score: ${score}/${quizData.length} 💙 Can you beat it? Thanks to @LoserVineet for creating this quiz`;
+    const levelName = levelLabel.textContent.split(": ")[1];
+    const text = `I just completed the Deepbook Quiz (${levelName})! My score: ${score}/${quizData.length} 💙 Can you beat it? Thanks to @LoserVineet for creating this quiz`;
     const url = `https://deepbook-quiz.vercel.app/`; // Replace with your deployed URL
     const shareUrl = `https://x.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
     window.open(shareUrl, "_blank");
