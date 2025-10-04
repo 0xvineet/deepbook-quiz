@@ -29,6 +29,19 @@ const quizDataLevel2 = [
     { question: "Which type of execution model ensures fairness in DeepBook order matching?", options: ["First-come, first-served", "Random order picking", "Validator-only priority", "Wallet age-based"], correct: 0 },
     { question: "What ensures that tokens in DeepBook cannot be accidentally duplicated or lost?", options: ["Proof-of-work", "Move’s resource-oriented design", "Order book timestamps", "Gas fee penalties"], correct: 1 },
 ];
+const quizDataLevel3 = [
+    { question: "When a DeepBook trade settles on Sui, what occurs?", options: ["Validator state resets", "Balances update atomically", "Settlement waits for epoch finalization", "Execution data moves off-chain"], correct: 1 },
+    { question: "Which condition would most likely increase DeepBook’s liquidity depth?", options: ["Fewer trading pairs", "Higher validator rewards", "More active market makers", "Increased epoch duration"], correct: 2 },
+    { question: "DeepBook, which factor primarily determines transaction ordering within a block?", options: ["Gas fee priority", "Validator stake weight", "Submission timestamp", "Order book depth"], correct: 1 },
+    { question: "What is the main role of the DeepMatchingEngine shared object?", options: ["Runs matching logic", "Stores token prices", "Tracks validator stakes", "Holds trade history"], correct: 0 },
+    { question: "Why can DeepBook handle high trading volume efficiently?", options: ["It avoids global state locks", "It runs off validator memory", "It skips order validation", "It delays final settlement"], correct: 0 },
+    { question: "What happens to your governance power when you unstake DEEP tokens?", options: ["Nothing — voting power remains the same", "Your voting power increases", "Your voting power is reduced by the amount unstaked, and active votes may be forfeited", "You lose access to DeepBook’s trading interface"], correct: 2 },
+    { question: "Why does DeepBook rely on object versioning for trades?", options: ["To prevent double-spending", "To reduce gas fees", "To enable off-chain computation", "To store trade history"], correct: 0 },
+    { question: "What condition must be met for a proposal to remain active in DeepBook governance?", options: ["It must receive votes from at least 25% of all stakers", "It must be submitted during a full moon epoch", "The proposer must not vote on any other proposal in the same epoch", "It must meet the minimum voting threshold before the epoch ends"], correct: 1 },
+    { question: "What does “Atomic Composability” enable in DeepBook?", options: ["Multiple actions succeed or fail together", "Ensures all trades execute in off-chain batches and handles failures sequentially", "Partial execution of multiple actions across various smart contracts is allowed", "Sequential execution of trades while maintaining state integrity across dApps"], correct: 0 },
+    { question: "What is the main limitation of perpetual DEX leverage compared to DeepBook Margin?", options: ["Collateral is locked in smart contracts", "Relies on synthetic positions and funding rates", "All trades are atomic", "Margin is adjustable per user"], correct: 1 },
+];
+
 
 let currentQuestion = 0;
 let score = 0;
@@ -73,6 +86,10 @@ function selectLevel(level) {
         quizData = quizDataLevel2;
         totalQuestionsSpan.textContent = quizData.length;
         levelLabel.textContent = "Level: Intermediate";
+    } else if(level === 3) {
+        quizData = quizDataLevel3;
+        totalQuestionsSpan.textContent = quizData.length;
+        levelLabel.textContent = "Level: Advanced";
     } else {
         alert("This level is not available yet!");
         return;
@@ -83,6 +100,7 @@ function selectLevel(level) {
     score = 0;
     showQuestion();
 }
+
 
 function showQuestion() {
     const q = quizData[currentQuestion];

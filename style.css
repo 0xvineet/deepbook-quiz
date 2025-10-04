@@ -66,11 +66,12 @@ body {
 }
 
 .level-buttons {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(2, auto);
     justify-content: center;
-    gap: 15px;
-    flex-wrap: wrap;
+    gap: 15px 20px; /* vertical & horizontal gap */
 }
+
 
 .level-buttons .btn.locked {
     opacity: 0.5;
