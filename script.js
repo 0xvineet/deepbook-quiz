@@ -41,6 +41,18 @@ const quizDataLevel3 = [
     { question: "What does “Atomic Composability” enable in DeepBook?", options: ["Multiple actions succeed or fail together", "Ensures all trades execute in off-chain batches and handles failures sequentially", "Partial execution of multiple actions across various smart contracts is allowed", "Sequential execution of trades while maintaining state integrity across dApps"], correct: 0 },
     { question: "What is the main limitation of perpetual DEX leverage compared to DeepBook Margin?", options: ["Collateral is locked in smart contracts", "Relies on synthetic positions and funding rates", "All trades are atomic", "Margin is adjustable per user"], correct: 1 },
 ];
+const quizDataLevel4 = [
+    { question: "Which aspect of DeepBook benefits most from Mysticeti’s improvements in throughput and shared-object handling?", options: ["NFT minting UI responsiveness then before", "Faster matching for volatile pairs", "Database backups", "Off-chain order aggregators"], correct: 1 },
+    { question: "What limitations are imposed on who can create pools in DeepBook V3?", options: ["Only validators can", "Only DEEP token holders can", "Only token creators can", "Anyone permissionlessly can"], correct: 3 },
+    { question: "Which structure stores history of order cancellations and partial fills?", options: ["Order (compact) only", "OrderInfo", "Fill only", "BalanceManager"], correct: 1 },
+    { question: "How are price levels represented in DeepBook’s order book (per side)?", options: ["Flat arrays", "Crit-bit tree", "Linked list only", "Balanced BST"], correct: 1 },
+    { question: "What is the core module managing order matching in DeepBook’s Move framework?", options: ["deepbook::matcher", "deepbook::pool", "deepbook::router", "deepbook::utils"], correct: 0 },
+    { question: "How does DeepBook handle flash loans or composable swaps?", options: ["Via using price locks", "By pausing CLOB updates", "Via atomic transaction batching", "Through external governance only"], correct: 2 },
+    { question: "The DeepBook SDK in v3.1 supports additional trading pair categories. Which of these categories is among them?", options: ["Governance tokens only", "Wrapped assets and stablecoin pairs", "Non-fungible tokens", "Yield farming LP tokens"], correct: 1 },
+    { question: "Which module handles registry of pools (pool discovery) in DeepBook V3?", options: ["registry.move", "factory.move", "router.move", "balance_manager.move"], correct: 0 },
+    { question: "What optimization related to execution efficiency was highlighted in the DeepBook v3.1 update?", options: ["Transaction batching overhead was increased to stabilize validator load", "Consensus finality time was adjusted to align with new pool registry latency", "Limit order paths were deprecated to simplify on-chain state transitions", "Matching engine’s execution loop was optimized to lower gas consumption for market orders"], correct: 3 },
+    { question: "What aspect of DeepBook’s architecture benefits most from Mysticeti V2’s DAG scheduling?", options: ["Limiting simultaneous trades per user", "Compression of on-chain event logs", "Delay of transaction visibility", "Parallel update of independent order book"], correct: 3 },
+];
 
 
 let currentQuestion = 0;
@@ -90,6 +102,10 @@ function selectLevel(level) {
         quizData = quizDataLevel3;
         totalQuestionsSpan.textContent = quizData.length;
         levelLabel.textContent = "Level: Advanced";
+    } else if(level === 4) {
+        quizData = quizDataLevel4;
+        totalQuestionsSpan.textContent = quizData.length;
+        levelLabel.textContent = "Level: Expert";
     } else {
         alert("This level is not available yet!");
         return;
